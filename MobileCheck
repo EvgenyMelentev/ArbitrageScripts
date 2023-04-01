@@ -1,0 +1,130 @@
+<script>
+var start = new Date;
+var key=false;
+var m_motion_x = [];
+var m_motion_y = [];
+var m_motion_z = [];
+
+var m_motion_x1 = [];
+var m_motion_y1 = [];
+var m_motion_z1 = [];
+
+var m_motion_x2 = [];
+var m_motion_y2 = [];
+var m_motion_z2 = [];
+
+var m_orientation_a = [];
+var m_orientation_b = [];
+var m_orientation_g = [];
+
+// заполняем массив движения
+window.addEventListener('devicemotion', motion_hook);
+function motion_hook(event) {
+	m_motion_x.push(event.accelerationIncludingGravity.x);
+	m_motion_y.push(event.accelerationIncludingGravity.y);
+	m_motion_z.push(event.accelerationIncludingGravity.z);
+	m_motion_x1.push(event.acceleration.x);
+	m_motion_y1.push(event.acceleration.y);
+	m_motion_z1.push(event.acceleration.z);	
+	m_motion_x2.push(event.rotationRate.alpha);
+	m_motion_y2.push(event.rotationRate.beta);
+	m_motion_z2.push(event.rotationRate.gamma);
+  }
+// заполняем массив датчика ориентации
+window.addEventListener('deviceorientation', handleOrientation);
+function handleOrientation(event) {
+	m_orientation_a.push(event.alpha);	
+	m_orientation_b.push(event.beta);
+	m_orientation_g.push(event.gamma);
+// начать повторы с интервалом 20 милисекунд
+var timerId = setInterval(function() {
+ check();
+}, 20);
+// через 5 сек остановить повторы
+setTimeout(function() {
+ clearInterval(timerId);
+//  alert(key);
+}, 5000);
+//setTimeout(check3, 50); //уменьшая этот пораметр, мы повышаем скорость редиректа, но повышаем вероятность пропустить бота
+function check() {
+	if (m_motion_x[0] !== undefined  && m_motion_x[1] !== undefined) {
+		if (m_motion_x[0] !== m_motion_x[1]) {
+		key = true;
+		}
+	}
+	if (m_motion_y[0] !== undefined && m_motion_y[1] !== undefined) {
+		if (m_motion_y[0] !== m_motion_y[1]) {
+		key = true;
+		}
+	}	
+	if (m_motion_z[0] !== undefined && m_motion_z[1] !== undefined) {
+		if (m_motion_z[0] !== m_motion_z[1]) {
+		key = true;
+		}
+	}
+	if (m_motion_x1[0] !== undefined && m_motion_x1[1] !== undefined) {
+		if (m_motion_x1[0] !== m_motion_x1[1]) {
+		key = true;
+		}
+	}
+	if (m_motion_y1[0] !== undefined && m_motion_y1[1] !== undefined) {
+		if (m_motion_y1[0] !== m_motion_y1[1]) {
+		key = true;
+		}
+	}	
+	if (m_motion_z1[0] !== undefined && m_motion_z1[1] !== undefined) {
+		if (m_motion_z1[0] !== m_motion_z1[1]) {
+		key = true;
+		}
+	}	
+	if (m_motion_x2[0] !== undefined && m_motion_x2[1] !== undefined) {
+		if (m_motion_x2[0] !== m_motion_x2[1]) {
+		key = true;
+		}
+	}
+	if (m_motion_y2[0] !== undefined && m_motion_y2[1] !== undefined) {
+		if (m_motion_y2[0] !== m_motion_y2[1]) {
+		key = true;
+		}
+	}	
+	if (m_motion_z2[0] !== undefined && m_motion_z2[1] !== undefined) {
+		if (m_motion_z2[0] !== m_motion_z2[1]) {
+		key = true;
+		}
+	}	
+	
+	
+	
+	
+	
+	if (m_orientation_a[0] !== undefined && m_orientation_a[1] !== undefined) {
+		if (m_orientation_a[0] !== m_orientation_a[1]) {
+		key = true;
+		}
+	}	
+	if (m_orientation_b[0] !== undefined && m_orientation_b[1] !== undefined) {
+		if (m_orientation_b[0] !== m_orientation_b[1]) {
+		key = true;
+		}
+	}	
+	if (m_orientation_g[0] !== undefined && m_orientation_g[1] !== undefined) {
+		if (m_orientation_g[0] !== m_orientation_g[1]) {
+		key = true;
+		}
+	}	
+	if (key == true) {
+		clearInterval(timerId);
+		var end = new Date; // конец измерения времени
+		var time= Math.floor((end - start)); // считаем количество секунд прошедших с открытия страницы, округляем в меньшую сторону
+		//alert (time);
+	//	alert(key);	
+		//посетитель с телефоном, кидаем на компанию
+		document.getElementById("key").innerHTML = time;
+		//alert("ok");
+	}
+	if (key == false) {
+	//	alert(key);	
+		//посетитель бот, кидаем на ботоловку
+		document.getElementById("key").innerHTML = time;
+		}
+} 
