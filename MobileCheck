@@ -1,1 +1,179 @@
+let start = new Date;
+let key=false;
+let m_motion_x = [];
+let m_motion_y = [];
+let m_motion_z = [];
+
+let m_motion_x1 = [];
+let m_motion_y1 = [];
+let m_motion_z1 = [];
+
+let m_motion_x2 = [];
+let m_motion_y2 = [];
+let m_motion_z2 = [];
+
+let m_orientation_a = [];
+let m_orientation_b = [];
+let m_orientation_g = [];
+
+
+window.addEventListener('devicemotion', motion_hook);
+function motion_hook(event) {
+	m_motion_x.push(event.accelerationIncludingGravity.x);
+	m_motion_y.push(event.accelerationIncludingGravity.y);
+	m_motion_z.push(event.accelerationIncludingGravity.z);
+	m_motion_x1.push(event.acceleration.x);
+	m_motion_y1.push(event.acceleration.y);
+	m_motion_z1.push(event.acceleration.z);	
+	m_motion_x2.push(event.rotationRate.alpha);
+	m_motion_y2.push(event.rotationRate.beta);
+	m_motion_z2.push(event.rotationRate.gamma);
+	
+	
+	document.getElementById("m_motion_x").innerHTML = m_motion_x[0];
+	document.getElementById("m_motion_y").innerHTML = m_motion_y[0];
+	document.getElementById("m_motion_z").innerHTML = m_motion_z[0];
+
+	document.getElementById("m_motion_x1").innerHTML = m_motion_x1[0];
+	document.getElementById("m_motion_y1").innerHTML = m_motion_y1[0];
+	document.getElementById("m_motion_z1").innerHTML = m_motion_z1[0];
+	
+	document.getElementById("m_motion_x2").innerHTML = m_motion_x2[0];
+	document.getElementById("m_motion_y2").innerHTML = m_motion_y2[0];
+	document.getElementById("m_motion_z2").innerHTML = m_motion_z2[0];
+	
+	
+	document.getElementById("2m_motion_x").innerHTML = m_motion_x[1];
+	document.getElementById("2m_motion_y").innerHTML = m_motion_y[1];
+	document.getElementById("2m_motion_z").innerHTML = m_motion_z[1];
+
+	document.getElementById("2m_motion_x1").innerHTML = m_motion_x1[1];
+	document.getElementById("2m_motion_y1").innerHTML = m_motion_y1[1];
+	document.getElementById("2m_motion_z1").innerHTML = m_motion_z1[1];
+	
+	document.getElementById("2m_motion_x2").innerHTML = m_motion_x2[1];
+	document.getElementById("2m_motion_y2").innerHTML = m_motion_y2[1];
+	document.getElementById("2m_motion_z2").innerHTML = m_motion_z2[1];
+	
+	
+	
+    }
+
+
+window.addEventListener('deviceorientation', handleOrientation);
+function handleOrientation(event) {
+	m_orientation_a.push(event.alpha);	
+	m_orientation_b.push(event.beta);
+	m_orientation_g.push(event.gamma);
+	
+	
+	document.getElementById("m_orientation_a").innerHTML = m_orientation_a[0];
+	document.getElementById("m_orientation_b").innerHTML = m_orientation_b[0];
+	document.getElementById("m_orientation_g").innerHTML = m_orientation_g[0];
+	
+
+	document.getElementById("2m_orientation_a").innerHTML = m_orientation_a[1];
+	document.getElementById("2m_orientation_b").innerHTML = m_orientation_b[1];
+	document.getElementById("2m_orientation_g").innerHTML = m_orientation_g[1];
+	
+		
+	}	
+	
+
+var timerId = setInterval(function() {
+ check();
+}, 20);
+
+setTimeout(function() {
+ clearInterval(timerId);
+}, 5000);
+
+
+function check() {
+
+	if (m_motion_x[0] !== undefined  && m_motion_x[1] !== undefined) {
+		if (m_motion_x[0] !== m_motion_x[1]) {
+		key = true;
+		}
+	}
+	if (m_motion_y[0] !== undefined && m_motion_y[1] !== undefined) {
+		if (m_motion_y[0] !== m_motion_y[1]) {
+		key = true;
+		}
+	}	
+	if (m_motion_z[0] !== undefined && m_motion_z[1] !== undefined) {
+		if (m_motion_z[0] !== m_motion_z[1]) {
+		key = true;
+		}
+	}
+	
+		
+	if (m_motion_x1[0] !== undefined && m_motion_x1[1] !== undefined) {
+		if (m_motion_x1[0] !== m_motion_x1[1]) {
+		key = true;
+		}
+	}
+	if (m_motion_y1[0] !== undefined && m_motion_y1[1] !== undefined) {
+		if (m_motion_y1[0] !== m_motion_y1[1]) {
+		key = true;
+		}
+	}	
+	if (m_motion_z1[0] !== undefined && m_motion_z1[1] !== undefined) {
+		if (m_motion_z1[0] !== m_motion_z1[1]) {
+		key = true;
+		}
+	}	
+	
+	
+	if (m_motion_x2[0] !== undefined && m_motion_x2[1] !== undefined) {
+		if (m_motion_x2[0] !== m_motion_x2[1]) {
+		key = true;
+		}
+	}
+	if (m_motion_y2[0] !== undefined && m_motion_y2[1] !== undefined) {
+		if (m_motion_y2[0] !== m_motion_y2[1]) {
+		key = true;
+		}
+	}	
+	if (m_motion_z2[0] !== undefined && m_motion_z2[1] !== undefined) {
+		if (m_motion_z2[0] !== m_motion_z2[1]) {
+		key = true;
+		}
+	}	
+	
+	
+	
+	
+	
+	if (m_orientation_a[0] !== undefined && m_orientation_a[1] !== undefined) {
+		if (m_orientation_a[0] !== m_orientation_a[1]) {
+		key = true;
+		}
+	}	
+	if (m_orientation_b[0] !== undefined && m_orientation_b[1] !== undefined) {
+		if (m_orientation_b[0] !== m_orientation_b[1]) {
+		key = true;
+		}
+	}	
+	if (m_orientation_g[0] !== undefined && m_orientation_g[1] !== undefined) {
+		if (m_orientation_g[0] !== m_orientation_g[1]) {
+		key = true;
+		}
+	}	
+	
+
+	if (key == true) {
+		
+		clearInterval(timerId);
+		var end = new Date; 
+		var time= Math.floor((end - start)); 
+		document.getElementById("key").innerHTML = time;
+	}
+	if (key == false) {
+
+		document.getElementById("key").innerHTML = time;
+		
+	}
+	
+} 
 
